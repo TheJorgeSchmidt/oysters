@@ -4,26 +4,24 @@ By: Jorge Schmidt
 
 # Overview
 
-This repository contains data and code to build a dataset of U.S imports of 
-fresh oysters (farmed and wild) [years?] and landings of fresh oysters [years?]. 
-It is intended to support feasibility analyses for potential oyster farms 
-on the U.S. mainland.
+This repository contains data and code to build a dataset of landings of fresh 
+oysters from 1950 to 2024, inclusive, and calculates inflation-adjusted prices.
+It is intended to support feasibility analyses for potential oyster farms on
+the U.S. mainland.
 
 Data sources:
 The landings data [FOSS_landings.xlsx] was obtained from
 https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446
 
-The imports data [ANNUAL TRADE-NO AGGREGATION_.xlsx] was obtained from
-[link]
+The inflation data [CPIAUCSL.csv] was obtained from
+https://fred.stlouisfed.org/series/CPIAUCSL
 
 The final data [file name] combines information from the files 
-FOSS_landings.xlsx and ANNUAL TRADE-NO AGGREGATION_.xlsx.
+FOSS_landings.xlsx and CPIAUCSL.csv.
 
-The analysis is meant to describe:
-1. historical trends (volume and pricing) in U.S. imports of fresh oysters 
-(farmed and wild);
-2. historical trends (volume and pricing) in U.S. landings of fresh oysters 
-(farmed and wild).
+The analysis is meant to:
+1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters;
+2. analyze inflation-adjusted pricing and volumes by state and species.
 
 
 
