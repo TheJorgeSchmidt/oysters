@@ -10,9 +10,15 @@ fresh oysters (farmed and wild) [years?] and landings of fresh osyters
 potential oyster farms on the U.S. mainland.
 
 Data sources:
-The landings data was obtained from
+The landings data [FOSS_landings.xlsx] was obtained from
 https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446
 
-The imports data was obtained from
+The imports data [ANNUAL TRADE-NO AGGREGATION_.xlsx] was obtained from
+[link]
+
+The final data [file name] combines information from the files 
+FOSS_landings.xlsx and ANNUAL TRADE-NO AGGREGATION_.xlsx.
+
+
 
 
