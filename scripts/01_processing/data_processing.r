@@ -20,7 +20,7 @@ library(dplyr)
 
 
 ## Load data -------------------------------------------------------------------
-us_landings <- read_excel("FOSS_landings.xlsx", sheet = "FOSS_landings.csv")
+us_landings <- read_excel("data/raw/FOSS_landings.xlsx")
 
 # PROCESSING ###################################################################
 
@@ -75,19 +75,55 @@ us_landings_clean <- us_landings_clean[,c(1:4, 6)] # selects relevant columns
 
 us_landings_clean <- na.omit(us_landings_clean) # omits rows with missing observations
 
-# VISUALIZE ####################################################################
+us_landings_clean
 
-production_by_year <- us_landings_clean %>%
-  group_by(year, species) %>%
+# VISUALIZE AND ANALYZE ITERATE ################################################
+# Summarize production by year, ignoring state
+production_by_year <- us_landings_clean |>
+  group_by(year, species) |>
   summarise(
-    Total_Pounds = sum(pounds, na.rm = TRUE),
-    Total_Dollars = sum(dollars, na.rm = TRUE)
+    total_pounds = sum(pounds, na.rm = TRUE),
+    total_dollars = sum(dollars, na.rm = TRUE)
   )
 
-production_by_year
+# select only rows with observations for eastern and pacific oysters
+production_by_year_ep <- production_by_year |>
+  filter(grepl(c("EASTERN|PACIFIC"), species))
 
+production_by_year_ep
+
+# first visualization
+ggplot(
+  data = production_by_year_ep,
+  mapping = aes(x = year,
+                y = total_pounds/1000,
+                color = species)
+  ) +
+  geom_point(alpha = 0.3) +
+  labs(
+    title = "Landings of oysters in the U.S.",
+    subtitle = "Volumes in tons for Eastern and Pacific oysters",
+    x = "Year",
+    y = "Imperial Tons",
+    color = "Species"
+  ) +
+  theme(
+  legend.position = "bottom",
+  legend.justification = "center"
+  )
+
+
+
+avg_annual_revenue <- mean(total_revenue$catch)
+
+dollar(revenue, prefix = "$")
+dollar(avg_annual_revenue, prefix = "$")
 
 ## Another step ----------------------------------------------------------------
+
+## Another step ----------------------------------------------------------------
+# calculate average price per lb per state per year
+
 
 # ANALYSIS #####################################################################
 
