@@ -6,7 +6,7 @@
 # jorge.schmidt@miami.edu
 # 11 OCT 2025
 #
-# Process U.S. landings data
+# Process U.S. landings data, calculate inflation-adjusted prices
 #
 ################################################################################
 
@@ -63,7 +63,7 @@ us_landings
 # Some of the data is redundant (common and scientific names, and tsn), adds imprecision
 # (metric tons and lbs), or is irrelevant (collection, confidentiality, source).
 # I will now build a pipeline that cleans up the column names and excludes unwanted
-# variables, and rows with missing weights anf prices.
+# variables, and rows with missing weights and prices.
 
 us_landings_clean <- us_landings |>
   clean_names() # fixes column names
@@ -91,125 +91,27 @@ production_by_year_ep <- production_by_year |>
   filter(grepl(c("EASTERN|PACIFIC"), species))
 
 production_by_year_ep
+# A tibble: 150 × 4
+# Groups:   year [75]
+#    year species         total_pounds total_dollars
+#   <dbl> <chr>                  <dbl>         <dbl>
+# 1  1950 OYSTER, EASTERN     68192100      27391974
+# 2  1950 OYSTER, PACIFIC      8079700       2001417
+# 3  1951 OYSTER, EASTERN     64305000      27104744
+# 4  1951 OYSTER, PACIFIC      8597000       1840170
+# 5  1952 OYSTER, EASTERN     72164600      30337289
+# 6  1952 OYSTER, PACIFIC      9957500       1864639
+# 7  1953 OYSTER, EASTERN     69318500      27301859
+# 8  1953 OYSTER, PACIFIC     10282700       1582829
+# 9  1954 OYSTER, EASTERN     70969600      30949289
+# 10  1954 OYSTER, PACIFIC     10855400       1700529
+# ℹ 140 more rows
 
-# first visualization - volume
-ggplot(
-  data = production_by_year_ep,
-  mapping = aes(x = year,
-                y = total_pounds/1000,
-                color = species)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Landings of oysters in the U.S. (1950 - 2024)",
-    subtitle = "Volumes in tons for Eastern and Pacific oysters",
-    x = "Year",
-    y = "Imperial Tons",
-    color = "Species"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
-
-
-# second visualization - revenue
-ggplot(
-  data = production_by_year_ep,
-  mapping = aes(x = year,
-                y = total_dollars/1000,
-                color = species)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Landings of oysters in the U.S. (1950 - 2024)",
-    subtitle = "Total revenues for Eastern and Pacific oysters",
-    x = "Year",
-    y = "Thousands of dollars",
-    color = "Species"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
-
-# third visualization - revenue per pound
-ggplot(
-  data = production_by_year_ep,
-  mapping = aes(x = year,
-                y = (total_dollars/total_pounds),
-                color = species)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Landings of oysters in the U.S. (1950 - 2024)",
-    subtitle = "Revenue per pound for Eastern and Pacific oysters",
-    x = "Year",
-    y = "Dollars per lb",
-    color = "Species"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
-
-# fourth visualization - Florida volumes
-production_by_year_by_state <- us_landings_clean |>
-  group_by(year, state) |>
-  summarise(
-    total_pounds = sum(pounds, na.rm = TRUE),
-    total_dollars = sum(dollars, na.rm = TRUE)
-  )
-
-# select only rows with observations for florida east and west coasts
-production_by_year_fl <- production_by_year_by_state |>
-  filter(grepl("FLORIDA", state))
-
-production_by_year_fl
-
-# fifth visualize fl production - volumes
-ggplot(
-  data = production_by_year_fl,
-  mapping = aes(x = year,
-                y = total_pounds/1000,
-                color = state)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Landings of oysters in Florida. (1950 - 2024)",
-    subtitle = "Volumes in tons for West and East coasts",
-    x = "Year",
-    y = "Imperial Tons",
-    color = "Coast"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("FL-East", "FL-West"))
-
-# sixth visualization - revenue per pound FL
-ggplot(
-  data = production_by_year_fl,
-  mapping = aes(x = year,
-                y = (total_dollars/total_pounds),
-                color = state)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Landings of oysters in Florida (1950 - 2024)",
-    subtitle = "Revenue per pound for East and West coast oysters",
-    x = "Year",
-    y = "Dollars per lb",
-    color = "Coast"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Fl - East", "FL - West"))
-
+write_rds(x = production_by_year_ep,
+          file = "data/processed/production_by_year_ep.rds")
 
 ## Produce inflation-adjusted prices -------------------------------------------
-cpi_now <- 323.36
+cpi_now <- 323.36 # from FRED
 # Let's examine the data
 cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
 
@@ -223,15 +125,32 @@ cpi_1950_2024_by_yr <- cpi_1950_2024 |>
     avg_cpi = mean(CPIAUCSL, na.rm = TRUE),
   )
 
-# left join with production data using year as the key
-production_by_year_ep_cpi <- cpi_1950_2024_by_yr |>
-  left_join(production_by_year_ep, by = "year")
+cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:150, ] # omit year 2025
 
-# visualize
+write_rds(x = cpi_1950_2024_by_yr,
+          file = "data/processed/cpi_1950_2024_by_yr.rds")
+
+# left join with production data using year as the key
+production_by_year_ep_cpi <- production_by_year_ep |>
+  left_join(cpi_1950_2024_by_yr,
+            by = "year")
+
+production_by_year_ep_cpi <- na.omit(production_by_year_ep_cpi) # omit any missing values
+
+ep_oysters_inflation_adjusted <-
+  mutate(production_by_year_ep_cpi,
+         adj_dollars = ((total_dollars/total_pounds)*(cpi_now/avg_cpi)))
+
+
+
+
+# VISUALIZATIONS #####################################################################
+
+## Inflation-adjusted price per pound for oysters in the U.S. ------------------
 ggplot(
-  data = production_by_year_ep_cpi,
+  data = ep_oysters_inflation_adjusted,
   mapping = aes(x = year,
-                y = ((total_dollars/total_pounds)*(cpi_now/avg_cpi)), #inflation adjustment
+                y = adj_dollars,
                 color = species)
   ) +
   geom_point(alpha = 0.3) +
@@ -248,12 +167,11 @@ ggplot(
   scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
 
 
-
-# ANALYSIS #####################################################################
-
-## Almost last step ------------------------------------------------------------
-
-
 # EXPORT #######################################################################
 
+
+saveRDS(ep_oysters_inflation_adjusted, "data/processed/production_by_year_ep_cpi.rds")
+
 ## The final step --------------------------------------------------------------
+
+
