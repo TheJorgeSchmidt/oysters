@@ -161,7 +161,7 @@ production_by_year_by_state <- us_landings_clean |>
     total_dollars = sum(dollars, na.rm = TRUE)
   )
 
-# select only rows with observations for eastern and pacific oysters
+# select only rows with observations for florida east and west coasts
 production_by_year_fl <- production_by_year_by_state |>
   filter(grepl("FLORIDA", state))
 
@@ -208,8 +208,45 @@ ggplot(
   scale_color_hue(labels = c("Fl - East", "FL - West"))
 
 
-## Another step ----------------------------------------------------------------
-# calculate average price per lb per state per year
+## Produce inflation-adjusted prices -------------------------------------------
+cpi_now <- 323.36
+# Let's examine the data
+cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
+
+cpi_1950_2024 # this data is reported monthly, we want yearly
+
+cpi_1950_2024_by_yr <- cpi_1950_2024 |>
+  mutate(year = lubridate::year(observation_date)) |>
+  select(year, CPIAUCSL) |>
+  group_by(year) |>
+  summarise(
+    avg_cpi = mean(CPIAUCSL, na.rm = TRUE),
+  )
+
+# left join with production data using year as the key
+production_by_year_ep_cpi <- cpi_1950_2024_by_yr |>
+  left_join(production_by_year_ep, by = "year")
+
+# visualize
+ggplot(
+  data = production_by_year_ep_cpi,
+  mapping = aes(x = year,
+                y = ((total_dollars/total_pounds)*(cpi_now/avg_cpi)), #inflation adjustment
+                color = species)
+  ) +
+  geom_point(alpha = 0.3) +
+  labs(
+    title = "Inflation-adjusted price per pound for oysters in the U.S.",
+    subtitle = "For Eastern and Pacific oysters (1950 - 2024)",
+    x = "Year",
+    y = "Dollars per lb",
+    color = "Species"
+  ) +
+  theme(
+  legend.position = "bottom",
+  legend.justification = "center") +
+  scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
+
 
 
 # ANALYSIS #####################################################################
