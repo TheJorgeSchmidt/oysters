@@ -15,24 +15,24 @@ mainland.
 The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted
 combine information from the files FOSS_landings.xlsx and CPIAUCSL.csv.
 
-The analysis is meant to:
-1. describe historical trends (volume and pricing) in U.S. landings of fresh 
+## The analysis is meant to:
+ - 1. describe historical trends (volume and pricing) in U.S. landings of fresh 
     oysters (eastern and pacific);
-2. describe historical trends (volume and pricing) in Florida landings of fresh 
+ - 2. describe historical trends (volume and pricing) in Florida landings of fresh 
     oysters on its east and west coasts;
-3. analyze historical inflation-adjusted pricing.
+ - 3. analyze historical inflation-adjusted pricing.
 
 
 # About the data
 data/processed/production_by_year_ep contains 150 rows and 4 columns.
 
-year -          Numeric - the year of the observation, from 1950 through 2024, 
+ - year -          Numeric - the year of the observation, from 1950 through 2024, 
                 inclusive.
-species -       Character - indicates the species. The options are 
+ - species -       Character - indicates the species. The options are 
                 "OYSTER, PACIFIC" and "OYSTER, EASTERN."
-total_pounds -  Numeric - total landings in pounds for a given species in a 
+ - total_pounds -  Numeric - total landings in pounds for a given species in a 
                 given year.
-total_dollars - Numeric - total farmgate revenues of the landings for a given 
+ - total_dollars - Numeric - total farmgate revenues of the landings for a given 
                 species in a given year.
                 
 
