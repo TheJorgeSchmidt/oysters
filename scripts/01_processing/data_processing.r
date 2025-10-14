@@ -4,7 +4,7 @@
 #
 # Jorge Schmidt
 # jorge.schmidt@miami.edu
-# 11 OCT 2025
+# 14 OCT 2025
 #
 # Process U.S. landings data, calculate inflation-adjusted prices
 #
@@ -77,7 +77,6 @@ us_landings_clean <- na.omit(us_landings_clean) # omits rows with missing observ
 
 us_landings_clean
 
-# VISUALIZE AND ANALYZE ITERATE ################################################
 # Summarize production by year, ignoring state
 production_by_year <- us_landings_clean |>
   group_by(year, species) |>
@@ -107,11 +106,12 @@ production_by_year_ep
 # 10  1954 OYSTER, PACIFIC     10855400       1700529
 # ℹ 140 more rows
 
+# Export the file(s)------------------------------------------------------------
 write_rds(x = production_by_year_ep,
           file = "data/processed/production_by_year_ep.rds")
 
 ## Produce inflation-adjusted prices -------------------------------------------
-cpi_now <- 323.36 # from FRED
+
 # Let's examine the data
 cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
 
@@ -127,51 +127,7 @@ cpi_1950_2024_by_yr <- cpi_1950_2024 |>
 
 cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:150, ] # omit year 2025
 
+## Export the file(s) ----------------------------------------------------------
 write_rds(x = cpi_1950_2024_by_yr,
           file = "data/processed/cpi_1950_2024_by_yr.rds")
-
-# left join with production data using year as the key
-production_by_year_ep_cpi <- production_by_year_ep |>
-  left_join(cpi_1950_2024_by_yr,
-            by = "year")
-
-production_by_year_ep_cpi <- na.omit(production_by_year_ep_cpi) # omit any missing values
-
-ep_oysters_inflation_adjusted <-
-  mutate(production_by_year_ep_cpi,
-         adj_dollars = ((total_dollars/total_pounds)*(cpi_now/avg_cpi)))
-
-
-
-
-# VISUALIZATIONS #####################################################################
-
-## Inflation-adjusted price per pound for oysters in the U.S. ------------------
-ggplot(
-  data = ep_oysters_inflation_adjusted,
-  mapping = aes(x = year,
-                y = adj_dollars,
-                color = species)
-  ) +
-  geom_point(alpha = 0.3) +
-  labs(
-    title = "Inflation-adjusted price per pound for oysters in the U.S.",
-    subtitle = "For Eastern and Pacific oysters (1950 - 2024)",
-    x = "Year",
-    y = "Dollars per lb",
-    color = "Species"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
-
-
-# EXPORT #######################################################################
-
-
-saveRDS(ep_oysters_inflation_adjusted, "data/processed/production_by_year_ep_cpi.rds")
-
-## The final step --------------------------------------------------------------
-
 
