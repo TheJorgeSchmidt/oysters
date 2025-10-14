@@ -94,18 +94,18 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
 https://fred.stlouisfed.org/series/CPIAUCSL
 
 ### data/processed contains three files that are the cleaned up and filtered version
-of the raw data.
+### of the raw data.
 
 ### data/output contains two files that are the result of the analyses.
 
 
 ## scripts
-### scripts/01_processing contains a single script that reads the raw data, cleans 
-it up, and exports processed data.
+### scripts/01_processing contains a single script that reads the raw data, 
+### cleans it up, and exports processed data.
 
 ### scripts/02_analyses contains two scripts: one calculates inflation-adjusted 
-yearly prices for Eastern and Pacific Oysters, and the other calculates 
-inflation-adjusted yearly prices for landings in Florida's east and west coasts.
+### yearly prices for Eastern and Pacific Oysters, and the other calculates 
+### inflation-adjusted yearly prices for landings in Florida's east and west coasts.
 
 ### scripts/03_contents contains a single script that builds seven figures.
 
