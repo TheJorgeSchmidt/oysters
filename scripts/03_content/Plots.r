@@ -19,6 +19,9 @@ library(tidyverse)
 # load data
 
 pbye <- read_rds("data/processed/production_by_year_ep.rds")
+pbyf <- read_rds("data/processed/production_by_year_fl.rds")
+eoia <- read_rds("data/output/ep_oysters_inflation_adjusted.rds")
+foia <- read_rds("data/output/fl_oysters_inflation_adjusted.rds")
 
 # first visualization - volume
 p1 <- ggplot(
@@ -82,30 +85,15 @@ p3 <- ggplot(
 
 
 # fourth visualization - Florida volumes
-# select only rows with observations for florida east and west coasts
-production_by_year_by_state <- us_landings_clean |>
-  group_by(year, state) |>
-  summarise(
-    total_pounds = sum(pounds, na.rm = TRUE),
-    total_dollars = sum(dollars, na.rm = TRUE)
-  )
-
-production_by_year_fl <- production_by_year_by_state |>
-  filter(grepl("FLORIDA", state))
-
-production_by_year_fl
-
-
-# fifth visualize fl production - volumes
-ggplot(
-  data = production_by_year_fl,
+p4 <- ggplot(
+  data = pbyf,
   mapping = aes(x = year,
                 y = total_pounds/1000,
-                color = state)
+                color = coast)
   ) +
   geom_point(alpha = 0.3) +
   labs(
-    title = "Landings of oysters in Florida. (1950 - 2024)",
+    title = "Landings of oysters in Florida (1950 - 2024)",
     subtitle = "Volumes in tons for West and East coasts",
     x = "Year",
     y = "Imperial Tons",
@@ -116,12 +104,12 @@ ggplot(
   legend.justification = "center") +
   scale_color_hue(labels = c("FL-East", "FL-West"))
 
-# sixth visualization - revenue per pound FL
-ggplot(
-  data = production_by_year_fl,
+# fifth visualization - revenue per pound FL
+p5 <- ggplot(
+  data = pbyf,
   mapping = aes(x = year,
                 y = (total_dollars/total_pounds),
-                color = state)
+                color = coast)
   ) +
   geom_point(alpha = 0.3) +
   labs(
@@ -136,9 +124,9 @@ ggplot(
   legend.justification = "center") +
   scale_color_hue(labels = c("Fl - East", "FL - West"))
 
-## FINAL Inflation-adjusted price per pound for oysters in the U.S. ------------
-ggplot(
-  data = ep_oysters_inflation_adjusted,
+#  Inflation-adjusted price per pound for oysters in the U.S. ------------------
+p6 <- ggplot(
+  data = eoia,
   mapping = aes(x = year,
                 y = adj_dollars,
                 color = species)
@@ -156,24 +144,59 @@ ggplot(
   legend.justification = "center") +
   scale_color_hue(labels = c("Eastern Oyster", "Pacific Oyster"))
 
+#  Inflation-adjusted price per pound for oysters in Florida -------------------
+p7 <- ggplot(
+  data = foia,
+  mapping = aes(x = year,
+                y = adj_dollars,
+                color = coast)
+  ) +
+  geom_point(alpha = 0.3) +
+  labs(
+    title = "Inflation-adjusted price per pound for oysters in Florida",
+    subtitle = "Landings on East and West coasts (1950 - 2024)",
+    x = "Year",
+    y = "Dollars per lb",
+    color = "Coast"
+  ) +
+  theme(
+  legend.position = "bottom",
+  legend.justification = "center") +
+  scale_color_hue(labels = c("FL East", "FL West"))
+
 # EXPORT #######################################################################
-## Export the toal volumes plots ------------------------------------------------------
+## Export the total volumes plots ----------------------------------------------
 ggsave(plot = p1,
-       filename = "results/img/landings_us_vol.png",
+       filename = "results/img/landings_us.png",
        width = 8,
        height = 10)
-## Export the total revenues plots ------------------------------------------------------
+## Export the total revenues plots ---------------------------------------------
 ggsave(plot = p2,
-       filename = "results/img/landings_us_rev.png",
+       filename = "results/img/revenues_us.png",
        width = 7,
        height = 10)
-## Export the revenue per lbs plots ------------------------------------------------------
+## Export the revenue per lbs plots --------------------------------------------
 ggsave(plot = p3,
-       filename = "results/img/revenues_per_lb.png",
+       filename = "results/img/revenues_per_lb_us.png",
        width = 8,
        height = 10)
-## Export the revenues plot ------------------------------------------------------
+## Export the FL volumes plot --------------------------------------------------
 ggsave(plot = p4,
-       filename = "results/img/landings_us_rev.png",
+       filename = "results/img/landings_fl.png",
+       width = 7,
+       height = 10)
+## Export the FL revenues plot -------------------------------------------------
+ggsave(plot = p5,
+       filename = "results/img/revenues_per_lb_fl.png",
+       width = 7,
+       height = 10)
+## Export Inflation-adjusted price per pound for oysters in the U.S plot -------
+ggsave(plot = p6,
+       filename = "results/img/adj_revenues_per_lb_us.png",
+       width = 7,
+       height = 10)
+## Export Inflation-adjusted price per pound for oysters in the U.S plot -------
+ggsave(plot = p7,
+       filename = "results/img/adj_revenues_per_lb_fl.png",
        width = 7,
        height = 10)

@@ -14,7 +14,25 @@
 # SET UP #######################################################################
 
 ## Load packages ---------------------------------------------------------------
+library(tidyverse)
+library(janitor)
+library(readxl)
 library(dplyr)
+
+# load data
+us_landings <- read_excel("data/raw/FOSS_landings.xlsx")
+cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
+
+# PROCESSING ###################################################################
+us_landings_clean <- us_landings |>
+  clean_names() # fixes column names
+
+us_landings_clean <- us_landings_clean |>
+      rename(species = nmfs_name)
+
+us_landings_clean <- us_landings_clean[,c(1:4, 6)] # selects relevant columns
+
+us_landings_clean <- na.omit(us_landings_clean) # omits rows with missing observations
 
 
 # select only rows with observations for florida east and west coasts
@@ -28,7 +46,12 @@ production_by_year_by_state <- us_landings_clean |>
 production_by_year_fl <- production_by_year_by_state |>
   filter(grepl("FLORIDA", state))
 
-production_by_year_fl
+production_by_year_fl <- production_by_year_fl |> rename(coast = state)
+
+# export the file -------------------------------------------------------------
+write_rds(x = production_by_year_fl,
+          file = "data/processed/production_by_year_fl.rds")
+
 
 cpi <-read_rds(file = "data/processed/cpi_1950_2024_by_yr.rds")
 landings <- read_rds(file = "data/processed/production_by_year_ep.rds")
