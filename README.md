@@ -1,16 +1,15 @@
-# U.S Oyster Landings 1950-2024
+# U.S. Oyster Landings 1950-2024
 
 By: Jorge Schmidt
 
 # Overview
 
-This repository contains data and code to build a dataset of landings of fresh 
+This repository contains data and code to build a dataset of landings of 
 eastern and pacific oysters from 1950 to 2024, inclusive, and calculates 
-inflation-adjusted prices. It is intended to support feasibility analyses for 
-potential oyster farms on the U.S. mainland.
-
-P.S. It also calculates volumes and inflation-adjusted prices for eastern oysters
-landed in Florida's east and west coasts.
+inflation-adjusted prices. It also calculates volumes and inflation-adjusted 
+prices for eastern oysters landed in Florida's east and west coasts. It is 
+intended to support feasibility analyses for potential oyster farms on the U.S. 
+mainland.
 
 
 The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted

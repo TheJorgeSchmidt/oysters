@@ -106,6 +106,7 @@ production_by_year_ep
 # 10  1954 OYSTER, PACIFIC     10855400       1700529
 # ℹ 140 more rows
 
+
 # Export the file(s)------------------------------------------------------------
 write_rds(x = production_by_year_ep,
           file = "data/processed/production_by_year_ep.rds")
