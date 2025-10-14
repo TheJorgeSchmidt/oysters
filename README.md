@@ -6,7 +6,7 @@ By: Jorge Schmidt
 
 This repository contains data and code to build a dataset of landings of fresh 
 eastern and pacific oysters from 1950 to 2024, inclusive, and calculates 
-inflation-adjusted prices.It is intended to support feasibility analyses for 
+inflation-adjusted prices. It is intended to support feasibility analyses for 
 potential oyster farms on the U.S. mainland.
 
 
@@ -31,7 +31,7 @@ total_dollars - Numeric - total farmgate revenues of the landings for a given
                 species in a given year.
 
 
-data/processed/cpi_1940_2024_by_yr contains 150 rows and 2 columns.
+data/processed/cpi_1940_2024_by_yr contains 75 rows and 2 columns.
 
 year -          Numeric - the year of the observation, from 1950 through 2024, 
                 inclusive.
@@ -52,7 +52,7 @@ avg_cpi -       Numeric - the average consumer price index for a year.
 adj_dollars -   Numeric - the inflation-adjusted price per pound for landings of
                 a given species in a given year.
 
-The repository contains three main folders:
+# The repository contains three main folders:
 
 data:
 data/raw contains:
@@ -62,17 +62,19 @@ https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446
 The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
 
+data/processed contains the cleaned up version of the raw data.
 
-data/processed contains the cleaned up and selected version of the raw data data
-
-
-data/output contains the result of the analysis
-
+data/output contains two files that are the result of the analyses.
 
 
 scripts
-scripts/01_processing contains a single script that reads the raw data, cleans it up, and exports processed data.
-scripts/02_analyses
+scripts/01_processing contains a single script that reads the raw data, cleans 
+it up, and exports processed data.
+
+scripts/02_analyses contains two scripts: one calculates inflation-adjusted 
+yearly prices for Eastern and Pacific Oysters, and the other calculates 
+inflation-adjusted yearly prices for landings in Florida's east and west coasts.
+
 scripts/03_contents contains a single script that builds two figures, shown below
 results contains a folder with images
 

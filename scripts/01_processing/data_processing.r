@@ -125,7 +125,7 @@ cpi_1950_2024_by_yr <- cpi_1950_2024 |>
     avg_cpi = mean(CPIAUCSL, na.rm = TRUE),
   )
 
-cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:150, ] # omit year 2025
+cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:75, ] # omit year 2025
 
 ## Export the file(s) ----------------------------------------------------------
 write_rds(x = cpi_1950_2024_by_yr,

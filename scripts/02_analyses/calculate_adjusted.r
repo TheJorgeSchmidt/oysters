@@ -33,5 +33,5 @@ ep_oysters_inflation_adjusted <-
 
 ## Export the file(s) ----------------------------------------------------------
 write_rds(x = ep_oysters_inflation_adjusted,
-          file = "data/output/ep_oysters_inflation_adjusted")
+          file = "data/output/ep_oysters_inflation_adjusted.rds")
 
