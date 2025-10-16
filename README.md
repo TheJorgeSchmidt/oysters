@@ -11,7 +11,7 @@ prices for eastern oysters landed in Florida's east and west coasts. It is
 intended to support feasibility analyses for potential oyster farms on the U.S. 
 mainland.
 
-![U.S. inflation-adjusted prices]("/results/img/adj_revenues_per_lb_us.png")
+![U.S. inflation-adjusted prices](results/img/adj_revenues_per_lb_us.png)
 
 
 The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted
