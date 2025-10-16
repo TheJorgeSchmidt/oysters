@@ -16,10 +16,8 @@ The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adju
 combine information from the files FOSS_landings.xlsx and CPIAUCSL.csv.
 
 ## The analysis is meant to:
- - 1. describe historical trends (volume and pricing) in U.S. landings of fresh 
-    oysters (eastern and pacific);
- - 2. describe historical trends (volume and pricing) in Florida landings of fresh 
-    oysters on its east and west coasts; and
+ - 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters (eastern and pacific);
+ - 2. describe historical trends (volume and pricing) in Florida landings of fresh oysters on its east and west coasts; and
  - 3. analyze historical inflation-adjusted pricing.
 
 
@@ -100,14 +98,11 @@ https://fred.stlouisfed.org/series/CPIAUCSL
 
 
 ## scripts
-### scripts/01_processing contains a single script that reads the raw data, 
-### cleans it up, and exports processed data.
+ - scripts/01_processing contains a single script that reads the raw data, cleans it up, and exports processed data.
 
-### scripts/02_analyses contains two scripts: one calculates inflation-adjusted 
-### yearly prices for Eastern and Pacific Oysters, and the other calculates 
-### inflation-adjusted yearly prices for landings in Florida's east and west coasts.
+ - scripts/02_analyses contains two scripts: one calculates inflation-adjusted yearly prices for Eastern and Pacific Oysters, and the other calculates inflation-adjusted yearly prices for landings in Florida's east and west coasts.
 
-### scripts/03_contents contains a single script that builds seven figures.
+ - scripts/03_contents contains a single script that builds seven figures.
 
 
 ## results
