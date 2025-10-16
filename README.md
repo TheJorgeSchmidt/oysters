@@ -91,10 +91,9 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
  - The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
 
-### data/processed contains three files that are the cleaned up and filtered version
-### of the raw data.
+ - data/processed contains three files that are the cleaned up and filtered version of the raw data.
 
-### data/output contains two files that are the result of the analyses.
+ - data/output contains two files that are the result of the analyses.
 
 
 ## scripts
