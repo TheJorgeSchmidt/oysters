@@ -11,6 +11,8 @@ prices for eastern oysters landed in Florida's east and west coasts. It is
 intended to support feasibility analyses for potential oyster farms on the U.S. 
 mainland.
 
+![U.S. inflation-adjusted prices]("/oysters/results/img/adj_revenues_per_lb_us.png")
+
 
 The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted
 combine information from the files FOSS_landings.xlsx and CPIAUCSL.csv.
@@ -91,9 +93,11 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
  - The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
 
- - data/processed contains three files that are the cleaned up and filtered version of the raw data.
+### data/processed contains:
+ - three files that are the cleaned up and filtered version of the raw data.
 
- - data/output contains two files that are the result of the analyses.
+### data/output contains:
+ - two files that are the result of the analyses.
 
 
 ## scripts
