@@ -1,32 +1,28 @@
-# U.S. Oyster Landings 1950-2024
+# U.S. Oyster Landings 1950-2024 and Imports []
 
 By: Jorge Schmidt
 
 # Overview
 
 This repository contains data and code to build a dataset of landings of 
-eastern and pacific oysters from 1950 to 2024, inclusive, and calculates 
-inflation-adjusted prices. It also calculates volumes and inflation-adjusted 
-prices for eastern oysters landed in Florida's east and west coasts. 
-
-In addition, it contains the data and the code to build a dataset of imports of 
-fresh (wild and farmed) oysters from 1989 to 2024, inclusive, and calculates inflation-
-adjusted prices.
+multiple species of oysters in the U.S. from 1950 to 2024, inclusive, and of 
+imports of fresh (wild and farmed) oysters from [?] to 2024, inclusive, and 
+calculates average weighed inflation-adjusted prices. 
 
 It is intended to support feasibility analyses for potential oyster farms on 
-the U.S. mainland generally and Florida specifically.
+the U.S. mainland.
 
-![U.S. inflation-adjusted prices](results/img/price_comparison.png)
+# ![U.S. inflation-adjusted prices](results/img/price_comparison.png)
 
 
-The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted
-combine information from the files FOSS_landings.xlsx and CPIAUCSL.csv.
+The final data files [ep_oysters_inflation_adjusted and 
+fl_oysters_inflation_adjusted ] combine information from the files 
+FOSS_landings.xlsx, ANNUAL TRADE-NO AGGREGATION_.xlsx, and CPIAUCSL.csv.
 
 ## The analysis is meant to:
  - 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters (eastern and pacific);
- - 2. describe historical trends (volume and pricing) in Florida landings of fresh oysters on its east and west coasts; 
- - 3. [imports] and
- - 4. analyze historical inflation-adjusted pricing.
+ - 2. describe historical trends (volume and pricing) in imports of fresh oysters (farmed and wild); and
+ - 3. analyze historical inflation-adjusted pricing.
 
 
 # About the data

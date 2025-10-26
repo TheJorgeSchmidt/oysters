@@ -7,7 +7,7 @@
 # 14 OCT 2025
 #
 # plot volumes, revenues, actual and inflation-adjusted yearly prices for
-# Eastern and Pacific Oysters for the U.S. and Florida east and west coasts
+# U.S. landings and imports of fresh oysters including weighed-average prices
 #
 ################################################################################
 
@@ -17,6 +17,7 @@
 library(tidyverse)
 library(cowplot)
 library(readr)
+library(ggplot2)
 
 # load data
 
@@ -25,6 +26,7 @@ pbyf <- read_rds("data/processed/production_by_year_fl.rds")
 eoia <- read_rds("data/output/ep_oysters_inflation_adjusted.rds")
 foia <- read_rds("data/output/fl_oysters_inflation_adjusted.rds")
 iia <-read_rds("data/output/imports_inflation_adjusted.rds")
+iiwa <-read_rds("data/output/imports_oysters_inflation_adjusted_wa.rds")
 
 # first visualization - volume
 p1 <- ggplot(
@@ -142,6 +144,7 @@ p6 <- ggplot(
     y = "Dollars per lb",
     color = "Species"
   ) +
+  scale_y_continuous(limits = c(0, max(eoia$adj_dollars))) +
   theme(
   legend.position = "bottom",
   legend.justification = "center") +
@@ -162,6 +165,8 @@ p7 <- ggplot(
     y = "Dollars per lb",
     color = "Coast"
   ) +
+   scale_y_continuous(limits = c(0, max(iiaa$weighted_avg_price))) +
+  theme_minimal() +
   theme(
   legend.position = "bottom",
   legend.justification = "center") +
@@ -171,24 +176,25 @@ p8 <- plot_grid(p3, p6, ncol = 1)
 
 
 #  Inflation-adjusted price per pound for imported oysters  -------------------
-p9 <- ggplot(
-  data = iia,
+iiaa <- iiwa %>%
+  distinct(year, weighted_avg_price)
+
+# Plot using ggplot2
+ggplot(
+  data = iiaa,
   mapping = aes(x = year,
-                y = adj_dollars,
-                color = source)
+                 y = weighted_avg_price)
   ) +
-  geom_point(alpha = 0.3) +
+  geom_point(color = "#1e90ff") +
+  geom_smooth(method = "lm", se = FALSE, color = "#ff6347") +
   labs(
     title = "Inflation-adjusted price per pound",
-    subtitle = "Imported oysters (1989 - 2024)",
+    subtitle = "Imports of fresh oysters (2012 - 2024)",
     x = "Year",
     y = "Dollars per lb",
-    color = "Source"
-  ) +
-  theme(
-  legend.position = "bottom",
-  legend.justification = "center") +
-  scale_color_hue(labels = c("Farmed", "Wild"))
+    ) +
+  scale_y_continuous(limits = c(0, max(iiaa$weighted_avg_price))) +
+  theme_minimal()
 
 # p10 <- plot_grid(p3, p6, ncol = 1) # Inflation-adjusted US landings vs Imports
 

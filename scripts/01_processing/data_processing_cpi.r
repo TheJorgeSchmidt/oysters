@@ -38,5 +38,5 @@ cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:75, ] # omit year 2025
 
 ## Export the file(s) ----------------------------------------------------------
 write_rds(x = cpi_1950_2024_by_yr,
-          file = "data/processed/cpi_1950_2024_by_yr.rds")
+          file = "data/processed/cpi_by_year.rds")
 

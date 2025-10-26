@@ -17,22 +17,32 @@ library(dplyr)
 library(readr)
 
 cpi <-read_rds(file = "data/processed/cpi_1950_2024_by_yr.rds")
-landings <- read_rds(file = "data/processed/production_by_year_ep.rds")
+landings <- read_rds(file = "data/processed/production_by_year.rds")
+
+# group by year, calculate weighed average price per lb
+landings_1950_2024_wa <- landings |>
+  group_by(year) |>
+  summarise(
+    weighed_avg_price = mean(total_dollars/total_pounds),
+    total_pounds = sum(total_pounds),
+  )
 
 cpi_now <- 323.36 # from FRED
 
 # left join with production data using year as the key
-production_by_year_ep_cpi <- landings |>
+production_by_year_cpi <- landings_1950_2024_wa |>
   left_join(cpi,
             by = "year")
 
-production_by_year_ep_cpi <- na.omit(production_by_year_ep_cpi) # omit any missing values
+production_by_year_cpi <- na.omit(production_by_year_cpi) # omit any missing values
 
-ep_oysters_inflation_adjusted <-
-  mutate(production_by_year_ep_cpi,
-         adj_dollars = ((total_dollars/total_pounds)*(cpi_now/avg_cpi)))
+landings_oysters_inflation_adjusted <-
+  mutate(production_by_year_cpi,
+         adj_dollars = ((weighed_avg_price)*(cpi_now/avg_cpi)))
+
+
 
 ## Export the file(s) ----------------------------------------------------------
-write_rds(x = ep_oysters_inflation_adjusted,
-          file = "data/output/ep_oysters_inflation_adjusted.rds")
+write_rds(x = landings_oysters_inflation_adjusted,
+          file = "data/output/landings_oysters_inflation_adjusted.rds")
 
