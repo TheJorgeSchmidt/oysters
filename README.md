@@ -7,9 +7,14 @@ By: Jorge Schmidt
 This repository contains data and code to build a dataset of landings of 
 eastern and pacific oysters from 1950 to 2024, inclusive, and calculates 
 inflation-adjusted prices. It also calculates volumes and inflation-adjusted 
-prices for eastern oysters landed in Florida's east and west coasts. It is 
-intended to support feasibility analyses for potential oyster farms on the U.S. 
-mainland.
+prices for eastern oysters landed in Florida's east and west coasts. 
+
+In addition, it contains the data and the code to build a dataset of imports of 
+fresh (wild and farmed) oysters from 1989 to 2024, inclusive, and calculates inflation-
+adjusted prices.
+
+It is intended to support feasibility analyses for potential oyster farms on 
+the U.S. mainland generally and Florida specifically.
 
 ![U.S. inflation-adjusted prices](results/img/price_comparison.png)
 
@@ -19,8 +24,9 @@ combine information from the files FOSS_landings.xlsx and CPIAUCSL.csv.
 
 ## The analysis is meant to:
  - 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters (eastern and pacific);
- - 2. describe historical trends (volume and pricing) in Florida landings of fresh oysters on its east and west coasts; and
- - 3. analyze historical inflation-adjusted pricing.
+ - 2. describe historical trends (volume and pricing) in Florida landings of fresh oysters on its east and west coasts; 
+ - 3. [imports] and
+ - 4. analyze historical inflation-adjusted pricing.
 
 
 # About the data
@@ -92,6 +98,9 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
 
  - The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
+
+  - The imports data [ANNUAL TRADE-NO AGGREGATION_.xlsx] was obtained from
+https://www.fisheries.noaa.gov/foss/f?p=215:2:6766915422114
 
 ### data/processed contains three files that are the cleaned up and filtered version of the raw data:
  - production_by_year_ep.rds contains the nationwide data for eastern and pacific oysters;
