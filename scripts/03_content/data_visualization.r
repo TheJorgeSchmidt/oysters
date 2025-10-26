@@ -15,6 +15,8 @@
 
 ## Load packages ---------------------------------------------------------------
 library(tidyverse)
+library(cowplot)
+library(readr)
 
 # load data
 
@@ -22,6 +24,7 @@ pbye <- read_rds("data/processed/production_by_year_ep.rds")
 pbyf <- read_rds("data/processed/production_by_year_fl.rds")
 eoia <- read_rds("data/output/ep_oysters_inflation_adjusted.rds")
 foia <- read_rds("data/output/fl_oysters_inflation_adjusted.rds")
+iia <-read_rds("data/output/imports_inflation_adjusted.rds")
 
 # first visualization - volume
 p1 <- ggplot(
@@ -52,7 +55,7 @@ p2 <- ggplot(
   ) +
   geom_point(alpha = 0.3) +
   labs(
-    title = "Landings of oysters in the U.S. (1950 - 2024)",
+    title = "Revenues from oysters in the U.S. (1950 - 2024)",
     subtitle = "Total revenues for Eastern and Pacific oysters",
     x = "Year",
     y = "Thousands of dollars",
@@ -72,7 +75,7 @@ p3 <- ggplot(
   ) +
   geom_point(alpha = 0.3) +
   labs(
-    title = "Landings of oysters in the U.S. (1950 - 2024)",
+    title = "Price of oysters in the U.S. (1950 - 2024)",
     subtitle = "Revenue per pound for Eastern and Pacific oysters",
     x = "Year",
     y = "Dollars per lb",
@@ -133,8 +136,8 @@ p6 <- ggplot(
   ) +
   geom_point(alpha = 0.3) +
   labs(
-    title = "Inflation-adjusted price per pound for oysters in the U.S.",
-    subtitle = "For Eastern and Pacific oysters (1950 - 2024)",
+    title = "Inflation-adjusted price for oysters in the U.S. (1950 - 2024)",
+    subtitle = "Revenue per pound for Eastern and Pacific oysters",
     x = "Year",
     y = "Dollars per lb",
     color = "Species"
@@ -163,6 +166,33 @@ p7 <- ggplot(
   legend.position = "bottom",
   legend.justification = "center") +
   scale_color_hue(labels = c("FL East", "FL West"))
+
+p8 <- plot_grid(p3, p6, ncol = 1)
+
+
+#  Inflation-adjusted price per pound for imported oysters  -------------------
+p9 <- ggplot(
+  data = iia,
+  mapping = aes(x = year,
+                y = adj_dollars,
+                color = source)
+  ) +
+  geom_point(alpha = 0.3) +
+  labs(
+    title = "Inflation-adjusted price per pound",
+    subtitle = "Imported oysters (1989 - 2024)",
+    x = "Year",
+    y = "Dollars per lb",
+    color = "Source"
+  ) +
+  theme(
+  legend.position = "bottom",
+  legend.justification = "center") +
+  scale_color_hue(labels = c("Farmed", "Wild"))
+
+# p10 <- plot_grid(p3, p6, ncol = 1) # Inflation-adjusted US landings vs Imports
+
+
 
 # EXPORT #######################################################################
 ## Export the total volumes plots ----------------------------------------------
@@ -198,5 +228,10 @@ ggsave(plot = p6,
 ## Export Inflation-adjusted price per pound for oysters in the U.S plot -------
 ggsave(plot = p7,
        filename = "results/img/adj_revenues_per_lb_fl.png",
+       width = 7,
+       height = 10)
+## Export Inflation-adjusted price per pound for oysters in the U.S plot -------
+ggsave(plot = p8,
+       filename = "results/img/price_comparison.png",
        width = 7,
        height = 10)

@@ -4,9 +4,9 @@
 #
 # Jorge Schmidt
 # jorge.schmidt@miami.edu
-# 14 OCT 2025
+# 21 OCT 2025
 #
-# Process U.S. landings data, calculate inflation-adjusted prices
+# Process U.S. landings data
 #
 ################################################################################
 
@@ -110,25 +110,3 @@ production_by_year_ep
 # Export the file(s)------------------------------------------------------------
 write_rds(x = production_by_year_ep,
           file = "data/processed/production_by_year_ep.rds")
-
-## Produce inflation-adjusted prices -------------------------------------------
-
-# Let's examine the data
-cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
-
-cpi_1950_2024 # this data is reported monthly, we want yearly
-
-cpi_1950_2024_by_yr <- cpi_1950_2024 |>
-  mutate(year = lubridate::year(observation_date)) |>
-  select(year, CPIAUCSL) |>
-  group_by(year) |>
-  summarise(
-    avg_cpi = mean(CPIAUCSL, na.rm = TRUE),
-  )
-
-cpi_1950_2024_by_yr <- cpi_1950_2024_by_yr[1:75, ] # omit year 2025
-
-## Export the file(s) ----------------------------------------------------------
-write_rds(x = cpi_1950_2024_by_yr,
-          file = "data/processed/cpi_1950_2024_by_yr.rds")
-

@@ -11,7 +11,7 @@ prices for eastern oysters landed in Florida's east and west coasts. It is
 intended to support feasibility analyses for potential oyster farms on the U.S. 
 mainland.
 
-![U.S. inflation-adjusted prices](results/img/adj_revenues_per_lb_us.png)
+![U.S. inflation-adjusted prices](results/img/price_comparison.png)
 
 
 The final data files ep_oysters_inflation_adjusted and fl_oysters_inflation_adjusted
@@ -93,30 +93,34 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
  - The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
 
-### data/processed contains:
- - three files that are the cleaned up and filtered version of the raw data.
+### data/processed contains three files that are the cleaned up and filtered version of the raw data:
+ - production_by_year_ep.rds contains the nationwide data for eastern and pacific oysters;
+ - production_by_year_fl.rds contains the florida data for its eastern and weatern coasts; and
+ - cpi_1950_2024_by_yr.rds contains the annualized cpi data.
 
-### data/output contains:
- - two files that are the result of the analyses.
+### data/output contains two files that are the result of the analyses:
+ - ep_oysters_inflation_adjusted.rds contains the combined nationwide landings and cpi data necessary to calculate inflation-adjusted prices
+ - fl_oysters_inflation_adjusted.rds contains the combined Florida landings and cpi data necessary to calculate inflation-adjusted prices
 
 
 ## scripts
- - scripts/01_processing contains a single script that reads the raw data, cleans it up, and exports processed data.
+ - scripts/01_processing contains two scripts that read the raw data, cleans it up, and exports processed data.
 
  - scripts/02_analyses contains two scripts: one calculates inflation-adjusted yearly prices for Eastern and Pacific Oysters, and the other calculates inflation-adjusted yearly prices for landings in Florida's east and west coasts.
 
- - scripts/03_contents contains a single script that builds seven figures.
+ - scripts/03_contents contains a single script that builds eight figures.
 
 
 ## results
 ### results/img contains seven images displaying 
- - 1. total volume (U.S.); 
- - 2. total revenues (U.S.);
- - 3. revenues per lbs. (U.S.); 
- - 4. Florida volumes; 
+ - 1. Total landings (U.S.); 
+ - 2. Total revenues (U.S.);
+ - 3. Revenues per lb. (U.S.); 
+ - 4. Florida landings; 
  - 5. Florida revenues; 
- - 6. Inflation-adjusted prices (U.S.); and
- - 7. Inflation-adjusted prices (Florida).
+ - 6. Inflation-adjusted prices (U.S.); 
+ - 7. Inflation-adjusted prices (Florida);
+ - 8. Inflation-adjusted price per lb. vs. revenues per lb. (U.S.).
 
 
 

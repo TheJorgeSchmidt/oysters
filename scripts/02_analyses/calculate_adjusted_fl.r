@@ -19,6 +19,7 @@ library(janitor)
 library(readxl)
 library(dplyr)
 
+
 # load data
 us_landings <- read_excel("data/raw/FOSS_landings.xlsx")
 cpi_1950_2024 <- read_csv("data/raw/CPIAUCSL.csv")
