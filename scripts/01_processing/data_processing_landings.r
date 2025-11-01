@@ -43,12 +43,11 @@ landings_clean
 
 # Summarize production by year, ignoring state
 landings_by_year <- landings_clean |>
-  group_by(year, species) |>
+  group_by(year) |>
   summarise(
     total_pounds = sum(pounds, na.rm = TRUE),
     total_dollars = sum(dollars, na.rm = TRUE)
   )
-
 
 ## Export -------------------------------------------------------------------
 write_rds(x = landings_by_year,

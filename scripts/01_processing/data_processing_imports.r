@@ -35,7 +35,7 @@ imports <- read_excel("data/raw/ANNUAL TRADE-NO AGGREGATION_.xlsx")
 imports_clean <- imports |>
   clean_names() # fixes column names
 
-imports_clean <- imports_clean[,c(1, 3:4, 6, 10:13)] # selects relevant columns
+imports_clean <- imports_clean[, c(1, 3:4, 6, 10:13)] # selects relevant columns
 
 imports_clean <- na.omit(imports_clean) # omits rows with missing observations
 
@@ -53,6 +53,8 @@ imports_by_year <- filtered_imports_clean |>
     total_pounds = sum(volume_kg * 2.204, na.rm = TRUE),
     total_dollars = sum(value_usd, na.rm = TRUE)
   )
+# Ignore 2025
+imports_by_year <- imports_by_year[1:13,]
 
 # Export the file(s)------------------------------------------------------------
 write_rds(x = imports_by_year,

@@ -7,7 +7,7 @@ By: Jorge Schmidt
 This repository contains data and code to build a dataset of landings of 
 multiple species of oysters in the U.S. from 1950 to 2024, inclusive, and of 
 imports of fresh (wild and farmed) oysters from [?] to 2024, inclusive, and 
-calculates average weighed inflation-adjusted prices. 
+calculates weighed-average inflation-adjusted prices. 
 
 It is intended to support feasibility analyses for potential oyster farms on 
 the U.S. mainland.
@@ -26,28 +26,15 @@ FOSS_landings.xlsx, ANNUAL TRADE-NO AGGREGATION_.xlsx, and CPIAUCSL.csv.
 
 
 # About the data
-data/processed/production_by_year_ep contains 150 rows and 4 columns.
+data/processed/landings_by_year contains 150 rows and 4 columns.
 
  - year -          Numeric - the year of the observation, from 1950 through 2024, 
-                inclusive.
- - species -       Character - indicates the species. The options are 
-                "OYSTER, PACIFIC" and "OYSTER, EASTERN."
- - total_pounds -  Numeric - total landings in pounds for a given species in a 
-                given year.
+
+ - total_pounds -  Numeric - total landings in pounds of meat for a given species in a 
+                given year (excludes shells).
  - total_dollars - Numeric - total farmgate revenues of the landings for a given 
                 species in a given year.
                 
-
-data/processed/production_by_year_fl contains 150 rows and 4 columns.
-
- - year -          Numeric - the year of the observation, from 1950 through 2024, 
-                inclusive.
- - coast -         Character - indicates the coast. The options are 
-                "FLORIDA-EAST" and "FLORIDA-WEST."
- - total_pounds -  Numeric - total landings in pounds for a given species in a 
-                given year.
- - total_dollars - Numeric - total farmgate revenues of the landings for a given 
-                species in a given year.
                 
 
 data/processed/cpi_1940_2024_by_yr contains 75 rows and 2 columns.
@@ -85,6 +72,8 @@ data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
  - adj_dollars -   Numeric - the inflation-adjusted price per pound for landings of
                 a given species in a given year.
 
+
+
 # The repository contains three main folders:
 
 ## data:
@@ -118,18 +107,12 @@ https://www.fisheries.noaa.gov/foss/f?p=215:2:6766915422114
 
 ## results
 ### results/img contains seven images displaying 
- - 1. Total landings (U.S.); 
- - 2. Total revenues (U.S.);
- - 3. Revenues per lb. (U.S.); 
- - 4. Florida landings; 
- - 5. Florida revenues; 
- - 6. Inflation-adjusted prices (U.S.); 
- - 7. Inflation-adjusted prices (Florida);
- - 8. Inflation-adjusted price per lb. vs. revenues per lb. (U.S.).
+ - 1. T
 
 
 
 
-
+change size price by volume
+explain conversion whole to meat factor
 
 

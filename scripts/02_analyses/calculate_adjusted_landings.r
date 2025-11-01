@@ -40,7 +40,8 @@ landings_inflation_adjusted <-
   mutate(production_by_year_cpi,
          adj_dollars = ((weighed_avg_price)*(cpi_now/avg_cpi)))
 
-
+# select relevant columns
+landings_inflation_adjusted <- landings_inflation_adjusted[, c(1, 3, 5)]
 
 ## Export the file(s) ----------------------------------------------------------
 write_rds(x = landings_inflation_adjusted,
