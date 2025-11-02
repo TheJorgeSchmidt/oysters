@@ -1,76 +1,55 @@
-# U.S. Oyster Landings 1950-2024 and Imports []
+# U.S. Oyster Landings and imports 2012 - 2024
 
 By: Jorge Schmidt
 
 # Overview
 
-This repository contains data and code to build a dataset of landings of 
-multiple species of oysters in the U.S. from 1950 to 2024, inclusive, and of 
-imports of fresh (wild and farmed) oysters from [?] to 2024, inclusive, and 
-calculates weighed-average inflation-adjusted prices. 
+This repository contains data and code to build a dataset of landings and  
+imports of fresh oysters from 2012 to 2024, inclusive, and 
+calculates weighed-average inflation-adjusted prices. It is intended to support 
+feasibility analyses for potential oyster farms on the U.S. mainland.
 
-It is intended to support feasibility analyses for potential oyster farms on 
-the U.S. mainland.
+# ![Volumes](results/img/landings_and_imports_weight.png)
+# ![Inflation-adjusted values](results/img/landings_and_imports_values.png)
 
-# ![U.S. inflation-adjusted prices](results/img/price_comparison.png)
-
-
-The final data files [ep_oysters_inflation_adjusted and 
-fl_oysters_inflation_adjusted ] combine information from the files 
-FOSS_landings.xlsx, ANNUAL TRADE-NO AGGREGATION_.xlsx, and CPIAUCSL.csv.
+The final data files [data/processed/landings_by_year.rds,  
+data/processed/imports_by_year.rds, and data/processed/cpi_by_year.rds] contain
+information from the files FOSS_landings.xlsx, ANNUAL TRADE-NO AGGREGATION_.xlsx, 
+and CPIAUCSL.csv.
 
 ## The analysis is meant to:
- - 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters (eastern and pacific);
- - 2. describe historical trends (volume and pricing) in imports of fresh oysters (farmed and wild); and
+ - 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters;
+ - 2. describe historical trends (volume and pricing) in imports of fresh oysters; and
  - 3. analyze historical inflation-adjusted pricing.
 
 
 # About the data
-data/processed/landings_by_year contains 150 rows and 4 columns.
+data/processed/landings_by_year.rds contains 75 rows and 3 columns.
 
  - year -          Numeric - the year of the observation, from 1950 through 2024, 
 
- - total_pounds -  Numeric - total landings in pounds of meat for a given species in a 
+ - total_pounds -  Numeric - total landings in pounds of meat for a 
                 given year (excludes shells).
  - total_dollars - Numeric - total farmgate revenues of the landings for a given 
-                species in a given year.
+                 year.
                 
+
+data/processed/imports_by_year.rds contains 13 rows and 3 columns.
+
+- year -          Numeric - the year of the observation, from 2012 through 2024, 
+
+ - total_pounds -  Numeric - total imports in pounds of meat for a 
+                given year (excludes shells).
                 
-
-data/processed/cpi_1940_2024_by_yr contains 75 rows and 2 columns.
+ - total_dollars - Numeric - total declared value of the imports for a given 
+                 year.
+                 
+                 
+data/processed/cpi_by_yr,rds contains 75 rows and 2 columns.
 
  - year -          Numeric - the year of the observation, from 1950 through 2024, 
                 inclusive.
  - avg_cpi -       Numeric - the average consumer price index for a year.
-
-
-data/output/ep_oysters_inflation_adjusted contains 150 rows and 6 columns.
-
- - year -          Numeric - the year of the observation, from 1950 through 2024, 
-                inclusive.
- - species -       Character - indicates the species. The options are 
-                "OYSTER, PACIFIC" and "OYSTER, EASTERN."
- - total_pounds -  Numeric - total landings in pounds for a given species in a 
-                given year.
- - total_dollars - Numeric - total farmgate revenues of the landings for a given 
-                species in a given year.
- - avg_cpi -       Numeric - the average consumer price index for a year.
- - adj_dollars -   Numeric - the inflation-adjusted price per pound for landings of
-                a given species in a given year.
-
-data/output/fl_oysters_inflation_adjusted contains 150 rows and 6 columns.
-
- - year -          Numeric - the year of the observation, from 1950 through 2024, 
-                inclusive.
- - coast -         Character - indicates the coast. The options are 
-                "FLORIDA-EAST" and "FLORIDA-WEST."
- - total_pounds -  Numeric - total landings in pounds for a given species in a 
-                given year.
- - total_dollars - Numeric - total farmgate revenues of the landings for a given 
-                species in a given year.
- - avg_cpi -       Numeric - the average consumer price index for a year.
- - adj_dollars -   Numeric - the inflation-adjusted price per pound for landings of
-                a given species in a given year.
 
 
 
@@ -88,26 +67,27 @@ https://fred.stlouisfed.org/series/CPIAUCSL
 https://www.fisheries.noaa.gov/foss/f?p=215:2:6766915422114
 
 ### data/processed contains three files that are the cleaned up and filtered version of the raw data:
- - production_by_year_ep.rds contains the nationwide data for eastern and pacific oysters;
- - production_by_year_fl.rds contains the florida data for its eastern and weatern coasts; and
- - cpi_1950_2024_by_yr.rds contains the annualized cpi data.
+ - landings_by_year.rds contains the nationwide data for 1950 - 2024;
+ - imports_by_year.rds contains the import data for 2012 - 2014; and
+ - cpi_by_yr.rds contains the annualized cpi data from 1950 - 2024.
 
 ### data/output contains two files that are the result of the analyses:
- - ep_oysters_inflation_adjusted.rds contains the combined nationwide landings and cpi data necessary to calculate inflation-adjusted prices
- - fl_oysters_inflation_adjusted.rds contains the combined Florida landings and cpi data necessary to calculate inflation-adjusted prices
+ - landings_inflation_adjusted.rds contains the combined nationwide landings and cpi data necessary to calculate inflation-adjusted prices
+ - imports_inflation_adjusted.rds contains the imports and cpi data necessary to calculate inflation-adjusted prices
 
 
 ## scripts
- - scripts/01_processing contains two scripts that read the raw data, cleans it up, and exports processed data.
+ - scripts/01_processing contains three scripts that read the raw data, cleans it up, and exports processed data.
 
- - scripts/02_analyses contains two scripts: one calculates inflation-adjusted yearly prices for Eastern and Pacific Oysters, and the other calculates inflation-adjusted yearly prices for landings in Florida's east and west coasts.
+ - scripts/02_analyses contains two scripts: one calculates inflation-adjusted yearly prices for oyster landings, and the other calculates inflation-adjusted yearly prices for oyster imports.
 
- - scripts/03_contents contains a single script that builds eight figures.
+ - scripts/03_contents contains a single script that builds two figures.
 
 
 ## results
-### results/img contains seven images displaying 
- - 1. T
+### results/img contains two images displaying 
+ - 1. Landings and imports of fresh oysters by weight (2012 - 2024)
+ - 2. Value in inflation-adjusted dollars of landings and imports (2012 - 2024)
 
 
 

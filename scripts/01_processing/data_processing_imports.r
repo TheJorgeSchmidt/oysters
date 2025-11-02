@@ -24,8 +24,6 @@ imports <- read_excel("data/raw/ANNUAL TRADE-NO AGGREGATION_.xlsx")
 
 # PROCESSING ###################################################################
 
-
-
 # The data contain 5,729  observations (rows) and 13 columns (year + 12 variables).
 # Some of the data is redundant (HTS code and Product Name), or is irrelevant
 # (Continent, Edible, US Customs Districts, FAO Country Code).
