@@ -89,10 +89,3 @@ https://www.fisheries.noaa.gov/foss/f?p=215:2:6766915422114
  - 1. Landings and imports of fresh oysters by weight (2012 - 2024)
  - 2. Value in inflation-adjusted dollars of landings and imports (2012 - 2024)
 
-
-
-
-change size price by volume
-explain conversion whole to meat factor
-
-
