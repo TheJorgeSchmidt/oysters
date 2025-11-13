@@ -6,7 +6,7 @@
 # jorge.schmidt@miami.edu
 # 21 OCT 2025
 #
-# Process U.S. landings data
+# Process U.S. landings data by state
 #
 ################################################################################
 
@@ -49,8 +49,8 @@ landings_clean <- na.omit(landings_clean) # omits rows with missing observations
 landings_clean
 
 # Summarize production by year, ignoring state
-landings_by_year <- landings_clean |>
-  group_by(year) |>
+landings_by_state <- landings_clean |>
+  group_by(state) |>
   summarise(
     total_pounds = sum(pounds, na.rm = TRUE),
     total_dollars = sum(dollars, na.rm = TRUE)
@@ -59,5 +59,5 @@ landings_by_year <- landings_clean |>
 
 
 ## Export -------------------------------------------------------------------
-write_rds(x = landings_by_year,
-          file = "data/processed/landings_by_year.rds")
+write_rds(x = landings_by_state[, c(1:2)],
+          file = "data/processed/landings_by_state.rds")

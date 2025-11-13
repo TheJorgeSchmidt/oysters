@@ -396,3 +396,76 @@ ggplot(
 
 # p10 <- plot_grid(p3, p6, ncol = 1) # Inflation-adjusted US landings vs Imports
 
+
+### unused
+
+# Load US coastline
+coast <- ne_countries(country = "United States of America")
+
+us_coast <- st_crop(coast, xmin = -125, ymin = 24, xmax = -66, ymax = 50)
+
+
+# State capitals minus alaska location
+capitals <- tibble::tribble(
+  ~state, ~lon, ~lat,
+  "ALABAMA", -86.7911, 32.3770,
+  "CALIFORNIA", -121.4944, 38.5816,
+  "CONNECTICUT", -72.6999, 41.7658,
+  "DELAWARE", -75.5277, 39.1582,
+  "FLORIDA", -84.2807, 30.4383,
+  "GEORGIA", -84.3880, 33.7490,
+  "LOUISIANA", -91.1871, 30.4515,
+  "MAINE", -69.7795, 44.3106,
+  "MARYLAND", -76.6413, 38.9784,
+  "MASSACHUSETTS", -71.0589, 42.3601,
+  "MISSISSIPPI", -90.1848, 32.2988,
+  "NEW JERSEY", -74.7429, 40.2170,
+  "NEW YORK", -73.7562, 42.6526,
+  "NORTH CAROLINA", -78.6382, 35.7796,
+  "OREGON", -123.0197, 44.9429,
+  "RHODE ISLAND", -71.4128, 41.8239,
+  "SOUTH CAROLINA", -81.0348, 34.0007,
+  "TEXAS", -97.7431, 30.2672,
+  "VIRGINIA", -77.4360, 37.5407,
+  "WASHINGTON", -122.9007, 47.0379
+)
+
+# Join with landings
+landings_cap <- capitals |>
+  left_join(landings_by_state |>
+  mutate(state = toupper(state)), by = "state")
+
+ggplot() +
+  # US coastline (48 contiguous states) as first layer
+  geom_sf(data = us_coast,
+          fill = "gray95",
+          color = "black") +
+  geom_point(data = landings_cap,
+             aes(x = lon,
+                 y = lat,
+                 size = total_pounds),
+             color = "#1f78b4",
+             alpha = 0.1) +
+  scale_size_continuous(range = c(1, 20),
+                        labels = comma,
+                        name = "Pounds") +
+  theme_void() +
+  labs(title = "Oyster Landings by State Capital (Circle Size = Volume)")
+
+
+library(terra)
+
+r <- rast(ext(us_states), res = 0.1)
+
+values(r) <- NA
+
+landings_rast <- rasterize(vect(us_states), r, field = "total_pounds")
+
+ggplot() +
+  geom_spatraster(data = landings_rast) +
+  scale_fill_gradientn(colors = RColorBrewer::brewer.pal(9,"Blues"),
+                       labels = comma,
+                       na.value = "gray90") +
+  theme_void() +
+  labs(title = "Oyster Landings (pounds)", fill = "Pounds") +
+  theme(legend.position = "right")
