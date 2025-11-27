@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "final_report.html",
+    "href": "final_report.html",
+    "title": "Trends in U.S. oyster landings",
+    "section": "",
+    "text": "This repository contains data and code to build a dataset of landings of fresh oysters from 1950 to 2024, inclusive, calculates weighed-average inflation-adjusted prices, and breaks out data for the top five producing states. It includes and aggregates all reported oyster species in NOAA records."
+  },
+  {
+    "objectID": "final_report.html#introduction",
+    "href": "final_report.html#introduction",
+    "title": "Trends in U.S. oyster landings",
+    "section": "",
+    "text": "This repository contains data and code to build a dataset of landings of fresh oysters from 1950 to 2024, inclusive, calculates weighed-average inflation-adjusted prices, and breaks out data for the top five producing states. It includes and aggregates all reported oyster species in NOAA records."
+  },
+  {
+    "objectID": "final_report.html#objectives",
+    "href": "final_report.html#objectives",
+    "title": "Trends in U.S. oyster landings",
+    "section": "Objectives",
+    "text": "Objectives\nIt is intended to support decision-making in the oyster production and distribution sectors by displaying trends in volumes and prices."
+  },
+  {
+    "objectID": "final_report.html#data-sources",
+    "href": "final_report.html#data-sources",
+    "title": "Trends in U.S. oyster landings",
+    "section": "Data Sources",
+    "text": "Data Sources\nThe data for oyster landings volumes and historical prices comes from NOAA. The data to calculate the adjustments for inflation comes from the St. Louis Fed (FRED)."
+  },
+  {
+    "objectID": "final_report.html#data-processing",
+    "href": "final_report.html#data-processing",
+    "title": "Trends in U.S. oyster landings",
+    "section": "Data Processing",
+    "text": "Data Processing\n\nThe file from NOAA contains 1,767 yearly observations (rows) and 11 columns (year + 10 variables). Some of the data is redundant (common and scientific names, and tsn), adds imprecision (metric tons and lbs), or is irrelevant for the purposes of this analysis (collection, confidentiality, source).\nThe file from FRED contains 908 monthly observations (rows) and two columns (date and CPI value).\nInitial processing included cleaning up file names, filtering, grouping and/or summarizing, and exporting the data.\nFurther processing included plotting data and a spatial visualization."
+  },
+  {
+    "objectID": "final_report.html#main-findings",
+    "href": "final_report.html#main-findings",
+    "title": "Trends in U.S. oyster landings",
+    "section": "Main Findings",
+    "text": "Main Findings"
+  },
+  {
+    "objectID": "final_report.html#references",
+    "href": "final_report.html#references",
+    "title": "Trends in U.S. oyster landings",
+    "section": "References",
+    "text": "References\n\nThe landings data [FOSS_landings.xlsx] was obtained from https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446\nThe inflation data [CPIAUCSL.csv] was obtained from https://fred.stlouisfed.org/series/CPIAUCSL"
+  },
+  {
+    "objectID": "README_old.html",
+    "href": "README_old.html",
+    "title": "U.S. Oyster Landings 1950 - 2024",
+    "section": "",
+    "text": "By: Jorge Schmidt"
+  },
+  {
+    "objectID": "README_old.html#the-analysis-is-meant-to",
+    "href": "README_old.html#the-analysis-is-meant-to",
+    "title": "U.S. Oyster Landings 1950 - 2024",
+    "section": "The analysis is meant to:",
+    "text": "The analysis is meant to:\n\n\ndescribe historical trends (volume and pricing) in U.S. landings of fresh oysters;\n\n\ndescribe historical trends (volume and pricing) in imports of fresh oysters; and\n\n\nanalyze historical inflation-adjusted pricing."
+  },
+  {
+    "objectID": "README_old.html#data",
+    "href": "README_old.html#data",
+    "title": "U.S. Oyster Landings 1950 - 2024",
+    "section": "data:",
+    "text": "data:\n\ndata/raw contains:\n\nThe landings data [FOSS_landings.xlsx] was obtained from https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446\nThe inflation data [CPIAUCSL.csv] was obtained from https://fred.stlouisfed.org/series/CPIAUCSL\nThe imports data [ANNUAL TRADE-NO AGGREGATION_.xlsx] was obtained from https://www.fisheries.noaa.gov/foss/f?p=215:2:6766915422114\n\n\n\ndata/processed contains three files that are the cleaned up and filtered version of the raw data:\n\nlandings_by_year.rds contains the nationwide data for 1950 - 2024;\nimports_by_year.rds contains the import data for 2012 - 2014; and\ncpi_by_yr.rds contains the annualized cpi data from 1950 - 2024.\n\n\n\ndata/output contains two files that are the result of the analyses:\n\nlandings_inflation_adjusted.rds contains the combined nationwide landings and cpi data necessary to calculate inflation-adjusted prices\nimports_inflation_adjusted.rds contains the imports and cpi data necessary to calculate inflation-adjusted prices"
+  },
+  {
+    "objectID": "README_old.html#scripts",
+    "href": "README_old.html#scripts",
+    "title": "U.S. Oyster Landings 1950 - 2024",
+    "section": "scripts",
+    "text": "scripts\n\nscripts/01_processing contains three scripts that read the raw data, cleans it up, and exports processed data.\nscripts/02_analyses contains two scripts: one calculates inflation-adjusted yearly prices for oyster landings, and the other calculates inflation-adjusted yearly prices for oyster imports.\nscripts/03_contents contains a single script that builds two figures."
+  },
+  {
+    "objectID": "README_old.html#results",
+    "href": "README_old.html#results",
+    "title": "U.S. Oyster Landings 1950 - 2024",
+    "section": "results",
+    "text": "results\n\nresults/img contains two images displaying\n\n\nLandings and imports of fresh oysters by weight (2012 - 2024)\n\n\nValue in inflation-adjusted dollars of landings and imports (2012 - 2024)"
+  }
+]
