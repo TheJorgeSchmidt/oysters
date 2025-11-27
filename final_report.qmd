@@ -1,0 +1,73 @@
+---
+title: "Trends in U.S. oyster landings"
+subtitle: "Volume and inflation-adjusted prices 1950 - 2024"
+author: "Jorge Schmidt"
+institute: "Rosenstiel School of Marine, Atmospheric, and Earth Science, Univertsity of Miami"
+date: "11/27/2025
+format: html
+---
+
+## Introduction
+
+This repository contains data and code to build a dataset of landings of fresh 
+oysters from 1950 to 2024, inclusive, calculates weighed-average 
+inflation-adjusted prices, and breaks out data for the top five producing states. It includes and aggregates all reported oyster species in NOAA records.
+
+## Objectives
+
+It is intended to support decision-making in the oyster production and distribution sectors by displaying trends in volumes and prices.
+
+## Data Sources
+
+The data for oyster landings volumes and historical prices comes from NOAA. The
+data to calculate the adjustments for inflation comes from the St. Louis Fed (FRED).
+
+## Data Processing
+
+1. The file from NOAA contains 1,767 yearly observations (rows) and 11 columns (year + 10 variables). Some of the data is redundant (common and scientific names, and tsn), adds imprecision (metric tons and lbs), or is irrelevant for the purposes of this analysis (collection, confidentiality, source).
+
+2. The file from FRED contains 908 monthly observations (rows) and two columns (date and CPI value).
+
+3. Clean up, filter, and export the data from NOAA and the St. Louis Fed.
+2. 
+
+## 
+
+## Main Findings
+
+```{r}
+ # Load packages 
+library(here)
+```
+
+## References
+
+ - The landings data [FOSS_landings.xlsx] was obtained from
+ https://www.fisheries.noaa.gov/foss/f?p=215:200:7482903932446
+
+ - The inflation data [CPIAUCSL.csv] was obtained from
+https://fred.stlouisfed.org/series/CPIAUCSL
+
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this 
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+
+
+(50%) Have the following section headers / slides: Introduction1, Objective(s)2, Data sources3, Data processing4, Main findings5, and References6. Each section should have a brief description. One paragraph may be enough, but feel free to write as much as you need to.
+(10%) You include at least two figures7:
+One of those must be the map from Assignment 4. The other one may be one from Assignment 3, or a figure that you generate directly in the document.
+All figures should include a figure caption.8
+(5%) You must use inline code at least once to present information from your data.

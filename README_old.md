@@ -6,8 +6,8 @@ By: Jorge Schmidt
 
 This repository contains data and code to build a dataset of landings of fresh 
 oysters from 1950 to 2024, inclusive, and calculates weighed-average 
-inflation-adjusted prices. It is intended to support decision-making in the
-oyster production and distribution sectors by displaying trends in volumes and prices.
+inflation-adjusted prices. It is intended to support feasibility analyses for
+potential oyster farms on the U.S. mainland.
 
 # ![Volumes](results/img/landings_and_imports_weight.png)
 # ![Inflation-adjusted values](results/img/landings_and_imports_values.png)
