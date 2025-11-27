@@ -62,16 +62,6 @@ top_states <- landings_clean |>
 
 top_states # this will be exported
 
-top_states_decade <- top_states |>
-  mutate(decade = 10 * (year %/% 10)) |>           # creates 1950, 1960, ..., 2020
-  summarise(pounds  = sum(pounds),
-            dollars = sum(dollars),
-            .by = c(decade, state)) |>
-  arrange(decade, desc(pounds))
-
-top_states_decade
-
-
 # Summarize production by year, ignoring state
 landings_by_year <- landings_clean |>
   group_by(year) |>
@@ -87,10 +77,7 @@ write_rds(x = landings_clean,
           file = "data/processed/landings_clean.rds")
 
 write_rds(x = top_states,
-          file = "data/processed/top_states.rds")
-
-write_rds(x = top_states_decade,
-          file = "data/processed/top_states_decade.rds")
+          file = "data/processed/landings_top_states.rds")
 
 write_rds(x = landings_by_year,
           file = "data/processed/landings_by_year.rds")

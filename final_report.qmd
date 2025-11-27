@@ -3,7 +3,7 @@ title: "Trends in U.S. oyster landings"
 subtitle: "Volume and inflation-adjusted prices 1950 - 2024"
 author: "Jorge Schmidt"
 institute: "Rosenstiel School of Marine, Atmospheric, and Earth Science, Univertsity of Miami"
-date: "11/27/2025
+date: "11/27/2025"
 format: html
 ---
 
@@ -19,8 +19,7 @@ It is intended to support decision-making in the oyster production and distribut
 
 ## Data Sources
 
-The data for oyster landings volumes and historical prices comes from NOAA. The
-data to calculate the adjustments for inflation comes from the St. Louis Fed (FRED).
+The data for oyster landings volumes and historical prices comes from NOAA. The data to calculate the adjustments for inflation comes from the St. Louis Fed (FRED).
 
 ## Data Processing
 
@@ -28,17 +27,157 @@ data to calculate the adjustments for inflation comes from the St. Louis Fed (FR
 
 2. The file from FRED contains 908 monthly observations (rows) and two columns (date and CPI value).
 
-3. Clean up, filter, and export the data from NOAA and the St. Louis Fed.
-2. 
+3. Initial processing included cleaning up file names, filtering, grouping and/or summarizing, and exporting the data.
 
-## 
+4. Further processing included plotting data and a spatial visualization.
 
 ## Main Findings
 
+# Volumes
+
+Oyster landings in the U.S. have declined from a maximum of 82.2 million pounds in 1952 to 19.4 million pounds in 2024. 
+
+@fig-landingsvol shows the volume trend.
+
 ```{r}
- # Load packages 
+#| label: fig-landingsvol
+#| fig-cap: "Trend in U.S. oyster landings"
+#| echo: fenced
+#| warning: false
+#| code-fold: true
+#| code-summary: "Show code"
+
+
+library(tidyverse)
+library(ggridges)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggimage)
+library(magick)
 library(here)
+
+landings <- read_rds("data/output/landings_inflation_adjusted.rds")
+
+# create data frame combining landings and oyster imagea
+landings$img <- rep("data/processed/oyster_resized.png", nrow(landings))
+
+# plot
+ggplot(
+  data = landings,
+  mapping = aes(x = year,
+                y = total_pounds/2204)) +
+  geom_image(aes(image = img), size = landings$total_pounds/1500000000) +
+  labs(
+  title = "Landings of fresh oysters in the U.S. (1950 - 2024)",
+  subtitle = "Expressed in weight of oyster meat",
+  x = "Year",
+  y = "Metric tons",
+  caption = "Data from NOAA") +
+  scale_y_continuous(limits = c(0, max(landings$total_pounds/2204))) +
+  theme(
+  caption.justification = "right",
+  legend.position = "bottom",
+  legend.justification = "center") +
+  scale_color_hue(labels = c("Landings", "Imports")) +
+  theme_minimal()
+
 ```
+
+# Inflation-adjusted price of oyster meat
+
+For many decades and most of the time period studied, the inflation-adjusted price of oyster meat fluctuated between \$5.00 and \$7.50. In 2013, the price began to rise significantly from this previous range and reached a high of \$12.10 in 2023.
+
+@fig-landingsprice shows the price trend.
+
+```{r}
+#| label: fig-landingsprice
+#| fig-cap: "Trend in U.S. oyster meat price"
+#| echo: fenced
+#| warning: false
+#| code-fold: true
+#| code-summary: "Show code"
+
+# plot
+ggplot(
+  data = landings,
+  mapping = aes(x = year,
+                y = adj_dollars)) +
+  geom_image(aes(image = img), size = landings$adj_dollars/200) +
+  labs(
+  title = "Landings of fresh oysters in the U.S. (1950 - 2024)",
+  subtitle = "In 2025 inflation-adjusted dollars per pound of oyster meat",
+  x = "Year",
+  y = "Dollars",
+  caption = "Data from NOAA and FRED") +
+  scale_y_continuous(limits = c(0, 13)) +
+  theme(
+  caption.justification = "right",
+  legend.position = "bottom",
+  legend.justification = "center") +
+  theme_minimal()
+
+
+```
+
+# Top five producing U.S. states
+
+From 1950 through 2024, the top five oyster producing states, as measured by inflation-adjusted value of the landings, were (in descending order): Louisiana, Maryland, Virginia, Washington, and Texas. The most consistent producers over this time period were Washington and Louisiana. Texas, Virginia, and Maryland all had gaps with no reported production.
+
+@fig-topfive shows the comparison.
+
+```{r}
+#| label: fig-topfive
+#| fig-cap: "Top five U.S. states"
+#| echo: fenced
+#| warning: false
+#| code-fold: true
+#| code-summary: "Show code"
+
+# load data
+top_states <- read_rds("data/output/landings_by_top_state_inflation_adjusted ")
+
+## define states as factors
+top_states <- top_states |>
+  mutate(state = factor(state,
+                        levels = c("Other",        # bottom
+                                   "Louisiana",
+                                   "Maryland",
+                                   "Virginia",
+                                   "Washington",
+                                   "Texas")))   # top
+
+# plot
+ggplot(
+  data = top_states,
+  mapping = aes(x = year,
+             y = state,
+             height = adj_dollars / 1e6,
+             fill = state)) +
+  geom_density_ridges(stat = "identity",   
+                      scale = 0.95,
+                      alpha = 0.99,
+                      color = "white") +
+  scale_fill_manual(values = c("gray25", "gray25", "gray25",
+                               "gray25", "gray25", "gray25")) +
+  labs(title = "Value of oyster production top five U.S. states (1950 - 2024)",
+       subtitle = "In inflation-adjusted 2025 dollars",
+       x = "Year",
+       y = NULL,
+       caption = "Data from NOAA and FRED") +
+  theme_ridges(grid = FALSE,
+               font_size = 13) +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"))
+
+```
+
+# A nice map
+
+This map of the 48 contiguous united states highlights the importance of Louisiana, Maryland, Virginia, Washington, and Texas to U.S. oyster production.
+![Figure 4: U.S. oyster-producing states](results/img/oyster_landing_by_state.png){fig-align="center" width=100%}
+
 
 ## References
 
@@ -47,27 +186,3 @@ library(here)
 
  - The inflation data [CPIAUCSL.csv] was obtained from
 https://fred.stlouisfed.org/series/CPIAUCSL
-
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this 
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
-
-
-
-(50%) Have the following section headers / slides: Introduction1, Objective(s)2, Data sources3, Data processing4, Main findings5, and References6. Each section should have a brief description. One paragraph may be enough, but feel free to write as much as you need to.
-(10%) You include at least two figures7:
-One of those must be the map from Assignment 4. The other one may be one from Assignment 3, or a figure that you generate directly in the document.
-All figures should include a figure caption.8
-(5%) You must use inline code at least once to present information from your data.

@@ -49,7 +49,7 @@ image_write(resized, "data/processed/oyster_resized.png")
 landings$img <- rep("data/processed/oyster_resized.png", nrow(landings))
 
 #### first visualization -------------------------------------------------------
-# landings and imports of fresh oysters by weight
+# landings of fresh oysters by weight
 p1 <- ggplot(
   data = landings,
   mapping = aes(x = year,
@@ -108,23 +108,21 @@ p3 <- ggplot(
        caption = "Data from NOAA and FRED") +
   theme_ridges(grid = FALSE,
                font_size = 13) +
+  theme_minimal() +
   theme(legend.position = "none",
         plot.title = element_text(face = "bold"))
-
-
-
 
 
 # EXPORT #######################################################################
 ## Export the total volumes plots ----------------------------------------------
 ggsave(plot = p1,
-       filename = "results/img/landings_and_imports_weight.png",
+       filename = "results/img/landings_by_weight.png",
        width = 8,
        height = 6)
 
 ## Export the total value plot ---------------------------------------------
 ggsave(plot = p2,
-       filename = "results/img/landings_and_imports_values.png",
+       filename = "results/img/landings_values.png",
        width = 7,
        height = 5)
 
