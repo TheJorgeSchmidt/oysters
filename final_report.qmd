@@ -4,7 +4,7 @@ subtitle: "Volume and inflation-adjusted prices 1950 - 2024"
 author: "Jorge Schmidt"
 institute: "Rosenstiel School of Marine, Atmospheric, and Earth Science, Univertsity of Miami"
 date: "11/27/2025"
-format: html
+format: pdf
 ---
 
 ## Introduction
