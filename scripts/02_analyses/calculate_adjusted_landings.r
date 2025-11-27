@@ -66,5 +66,5 @@ landings_by_top_state_inflation_adjusted <- landings_by_top_state_inflation_adju
 write_rds(x = landings_inflation_adjusted,
           file = "data/output/landings_inflation_adjusted.rds")
 
-write_rds(x = landings_by_top_state_inflation_adjusted ,
-          file = "data/output/landings_by_top_state_inflation_adjusted ")
+write_rds(x = landings_by_top_state_inflation_adjusted,
+          file = "data/output/landings_by_top_state_inflation_adjusted.rds")

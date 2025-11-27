@@ -4,7 +4,7 @@ subtitle: "Volume and inflation-adjusted prices 1950 - 2024"
 author: "Jorge Schmidt"
 institute: "Rosenstiel School of Marine, Atmospheric, and Earth Science, Univertsity of Miami"
 date: "11/27/2025"
-format: pdf
+format: html
 ---
 
 ## Introduction
@@ -135,7 +135,7 @@ From 1950 through 2024, the top five oyster producing states, as measured by inf
 #| code-summary: "Show code"
 
 # load data
-top_states <- read_rds("data/output/landings_by_top_state_inflation_adjusted ")
+top_states <- read_rds("data/output/landings_by_top_state_inflation_adjusted.rds")
 
 ## define states as factors
 top_states <- top_states |>
