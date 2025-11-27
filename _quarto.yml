@@ -1,0 +1,9 @@
+project:
+  type: website
+
+website:
+  title: "U.S. Oyster Landings 1950–2024"
+  navbar:
+    left:
+      - text: "Report"
+        href: docs/final_report.html
