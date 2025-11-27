@@ -176,8 +176,18 @@ ggplot(
 # A nice map
 
 This map of the 48 contiguous united states highlights the importance of Louisiana, Maryland, Virginia, Washington, and Texas to U.S. oyster production.
-![Figure 4: U.S. oyster-producing states](results/img/oyster_landing_by_state.png){fig-align="center" width=100%}
 
+```{r}
+#| label: fig-map
+#| fig-cap: "U.S. oyster-producing states"
+#| fig-align: center
+#| echo: fenced
+#| warning: false
+#| code-fold: true
+#| code-summary: "Show code"
+
+knitr::include_graphics("results/img/oyster_landing_by_state.png")
+```
 
 ## References
 
