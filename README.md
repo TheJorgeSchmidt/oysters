@@ -10,8 +10,7 @@ inflation-adjusted prices for oyster meat during that timeframe. It is intended 
 oyster production and distribution sectors by displaying trends in volumes 
 and prices. 
 
-A full report can be found here: https://htmlpreview.github.io/?https://github.com/TheJorgeSchmidt/oysters/blob/main/final_report.html
-
+A full report can be found [here](https://thejorgeschmidt.github.io/oysters/final_report.html))
 
 ## The analysis is meant to:
 1. describe historical trends (volume and pricing) in U.S. landings of fresh oysters;
